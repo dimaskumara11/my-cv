@@ -1,679 +1,1195 @@
 <!DOCTYPE html>
-<!--[if lt IE 9 ]><html class="no-js oldie" lang="en"> <![endif]-->
-<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-<html class="no-js" lang="en">
-<!--<![endif]-->
-
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dimas Kumara — The Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <!--- basic page needs
-    ================================================== -->
-    <meta charset="utf-8">
-    <title>DF</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+    :root {
+      --cream: #F5EFE0;
+      --parchment: #EDE4CF;
+      --paper: #FAF6EC;
+      --ink: #1A0F08;
+      --ink-light: #3D2314;
+      --gold: #B8860B;
+      --gold-light: #D4A017;
+      --burgundy: #6B1E3D;
+      --brown: #7B5232;
+      --sepia: #8B7355;
+    }
 
-    <!-- mobile specific metas
-    ================================================== -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    html { scroll-behavior: smooth; }
 
-    <!-- CSS
-    ================================================== -->
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/vendor.css">
-    <link rel="stylesheet" href="css/main.css">
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
 
-    <!-- script
-    ================================================== -->
-    <script src="js/modernizr.js"></script>
-    <script src="js/pace.min.js"></script>
+    /* Parchment noise texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
 
-    <!-- favicons
-    ================================================== -->
-    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
-    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    /* ===================== NAV ===================== */
+    .book-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      background: var(--ink);
+      padding: 0 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .nav-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,239,224,0.7);
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold-light);
+    }
 
+    /* ===================== COVER ===================== */
+    .book-cover {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      padding-top: 60px;
+    }
+    .book-spine {
+      background: linear-gradient(180deg, #120a04, #2C1810, #120a04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      border-right: 2px solid var(--gold);
+      box-shadow: 6px 0 30px rgba(0,0,0,0.35);
+      padding: 3rem 0;
+    }
+    .spine-text {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .spine-gem { color: var(--gold); font-size: 1rem; }
+
+    .cover-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7rem 7rem 5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover-content::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 85% 15%, rgba(184,134,11,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 85%, rgba(107,30,61,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cover-edition {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(184,134,11,0.5);
+      padding: 0.4rem 1.4rem;
+      display: inline-block;
+      margin-bottom: 2.5rem;
+    }
+    .cover-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 9vw, 9.5rem);
+      font-weight: 300;
+      line-height: 0.9;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .cover-name em {
+      font-style: italic;
+      color: var(--burgundy);
+    }
+    .cover-subtitle {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--sepia);
+      margin: 1.8rem 0 3rem;
+      line-height: 1.5;
+    }
+
+    .ornamental-rule {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0.5rem 0 2.5rem;
+      max-width: 460px;
+    }
+    .ornamental-rule .rl {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--gold), transparent);
+    }
+    .ornamental-rule .rl.rev { background: linear-gradient(to left, var(--gold), transparent); }
+    .ornamental-rule .gem { color: var(--gold); font-size: 0.9rem; }
+
+    .cover-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 3rem;
+      max-width: 480px;
+      margin-bottom: 3.5rem;
+    }
+    .meta-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sepia);
+      margin-bottom: 0.2rem;
+    }
+    .meta-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--ink);
+    }
+
+    .btn-row { display: flex; gap: 1.2rem; }
+    .btn-ink {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--gold);
+      padding: 0.85rem 2.2rem;
+      border: 1px solid var(--ink);
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+    .btn-ink:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+    .btn-outline {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--ink);
+      padding: 0.85rem 2.2rem;
+      border: 1px solid var(--brown);
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover { background: var(--brown); color: var(--cream); }
+
+    .cover-folio {
+      position: absolute;
+      right: 3rem;
+      bottom: 3rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18rem;
+      font-weight: 700;
+      color: rgba(26,15,8,0.035);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ===================== CHAPTER SHELL ===================== */
+    .chapter {
+      position: relative;
+      padding: 7rem 0 6rem;
+    }
+    .chapter-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 7rem 0 5rem;
+      position: relative;
+    }
+
+    .chapter-runner {
+      position: absolute;
+      top: 2rem; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 7rem 0 5rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sepia);
+      opacity: 0.55;
+    }
+    .chapter-runner::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 5rem; right: 7rem;
+      height: 1px;
+      background: linear-gradient(to right, var(--gold), transparent 60%, var(--gold));
+      opacity: 0.35;
+    }
+
+    .bg-folio {
+      position: absolute;
+      right: 1rem; top: 3.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(8rem, 14vw, 16rem);
+      font-weight: 700;
+      color: rgba(26,15,8,0.04);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .chapter--alt { background: var(--parchment); }
+    .chapter--dark { background: var(--ink); color: var(--cream); }
+
+    .ch-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.7rem;
+    }
+    .chapter--dark .ch-label { color: var(--gold-light); }
+
+    .ch-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .ch-heading em { font-style: italic; color: var(--burgundy); }
+    .chapter--dark .ch-heading { color: var(--cream); }
+    .chapter--dark .ch-heading em { color: var(--gold-light); }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0 3rem;
+    }
+    .ornament .ln {
+      width: 80px; height: 1px;
+      background: var(--gold); opacity: 0.5;
+    }
+    .ornament .fl { color: var(--gold); font-size: 1.2rem; }
+
+    .pg-num {
+      position: absolute;
+      bottom: 1.8rem; right: 5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--sepia);
+      opacity: 0.45;
+    }
+    .chapter--dark .pg-num { color: var(--gold); opacity: 0.3; }
+
+    /* ===================== ABOUT ===================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      margin-bottom: 1.4rem;
+      font-size: 1rem;
+      color: var(--ink-light);
+      line-height: 1.9;
+    }
+    .drop-cap::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.2rem;
+      font-weight: 700;
+      float: left;
+      line-height: 0.72;
+      margin-right: 0.12em;
+      margin-top: 0.08em;
+      color: var(--burgundy);
+    }
+
+    .callout-box {
+      background: var(--paper);
+      border: 1px solid rgba(184,134,11,0.3);
+      padding: 2.5rem;
+      position: relative;
+    }
+    .callout-box::before,
+    .callout-box::after {
+      content: '';
+      position: absolute;
+      width: 24px; height: 24px;
+    }
+    .callout-box::before {
+      top: -1px; left: -1px;
+      border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+    }
+    .callout-box::after {
+      bottom: -1px; right: -1px;
+      border-bottom: 2px solid var(--gold);
+      border-right: 2px solid var(--gold);
+    }
+    .callout-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--burgundy);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid rgba(184,134,11,0.4);
+      color: var(--brown);
+      text-transform: uppercase;
+    }
+
+    /* ===================== SKILLS ===================== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+    .skill-card {
+      padding: 1.6rem 1.8rem;
+      border: 1px solid rgba(184,134,11,0.2);
+      background: rgba(250,246,236,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--gold), var(--burgundy));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .skill-card:hover::before { opacity: 1; }
+    .sk-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+    .sk-track {
+      height: 2px;
+      background: rgba(26,15,8,0.1);
+      position: relative;
+    }
+    .sk-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--gold), var(--burgundy));
+      width: 0;
+      transition: width 1.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .sk-pct {
+      position: absolute;
+      right: 0;
+      top: -1.4rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--sepia);
+    }
+
+    /* ===================== EXPERIENCE ===================== */
+    .timeline {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.6rem; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), rgba(184,134,11,0.1));
+    }
+    .exp-entry {
+      position: relative;
+      padding-bottom: 3.5rem;
+    }
+    .exp-entry:last-child { padding-bottom: 0; }
+    .exp-entry::before {
+      content: '◆';
+      position: absolute;
+      left: -2.88rem;
+      top: 0.25rem;
+      color: var(--gold);
+      font-size: 0.65rem;
+    }
+    .exp-period {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .exp-co {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+    .exp-role {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--burgundy);
+      margin-bottom: 0.9rem;
+    }
+    .exp-desc {
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      line-height: 1.75;
+    }
+    .exp-desc ul { list-style: none; padding: 0; }
+    .exp-desc ul li::before { content: '— '; color: var(--gold); }
+
+    /* ===================== PORTFOLIO ===================== */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .proj-card {
+      background: var(--paper);
+      border: 1px solid rgba(184,134,11,0.18);
+      padding: 2rem 2rem 2.2rem;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+    .proj-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(to right, var(--gold), var(--burgundy));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .proj-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(26,15,8,0.1);
+    }
+    .proj-card:hover::after { transform: scaleX(1); }
+    .proj-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: rgba(184,134,11,0.13);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+    .proj-cat {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .proj-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+    .proj-desc {
+      font-size: 0.9rem;
+      color: var(--sepia);
+      line-height: 1.7;
+    }
+
+    /* ===================== CONTACT ===================== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 5fr 3fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.65;
+      color: rgba(245,239,224,0.85);
+      margin-bottom: 2.5rem;
+    }
+    .contact-info { list-style: none; }
+    .contact-info li { margin-bottom: 1.8rem; }
+    .ci-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .ci-val {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--parchment);
+    }
+    .btn-ink-light {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 0.85rem 2.2rem;
+      border: 1px solid var(--gold);
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+    .btn-ink-light:hover { background: transparent; color: var(--gold-light); border-color: var(--gold-light); }
+
+    /* ===================== FOOTER ===================== */
+    .site-footer {
+      background: var(--ink);
+      border-top: 2px solid var(--gold);
+      padding: 1.5rem 0;
+    }
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sepia);
+    }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(184,134,11,0.6);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-light); }
+
+    /* ===================== ANIMATIONS ===================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+    .d5 { transition-delay: 0.5s; }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1024px) {
+      .chapter-inner { padding: 0 4rem; }
+      .chapter-runner { padding: 0 4rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .cover-content { padding: 5rem 4rem; }
+      .footer-inner { padding: 0 4rem; }
+    }
+    @media (max-width: 768px) {
+      .book-nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .book-cover { grid-template-columns: 40px 1fr; }
+      .cover-content { padding: 4rem 2rem 3rem; }
+      .chapter-inner { padding: 0 1.5rem; }
+      .chapter-runner { display: none; }
+      .skills-grid, .project-grid { grid-template-columns: 1fr; }
+      .footer-inner { padding: 0 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+      .cover-folio { display: none; }
+      .bg-folio { display: none; }
+    }
+  </style>
 </head>
-
-<body id="top">
-
-    <!-- header
-    ================================================== -->
-    <header class="s-header">
-
-        <div class="header-logo">
-            <a class="site-logo" href="index.html"><img src="images/logo.png" alt="Homepage" style="max-width: 50% !important"></a>
-        </div>
-
-        <nav class="header-nav-wrap">
-            <ul class="header-nav">
-                <li class="current"><a class="smoothscroll"  href="#home" title="home">Home</a></li>
-                <li><a class="smoothscroll"  href="#about" title="about">About</a></li>
-                <li><a class="smoothscroll"  href="#works" title="works">Works</a></li>
-                <li><a class="smoothscroll"  href="#contact" title="contact">Contact</a></li>
-            </ul>
-        </nav>
-
-        <a class="header-menu-toggle" href="#0"><span>Menu</span></a>
-
-    </header> <!-- end s-header -->
-
-
-   <!-- home
-   ================================================== -->
-   <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="images/hero-bg-2.jpg" style="background-size: cover !important;" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
-
-        <div class="overlay"></div>
-        <div class="shadow-overlay"></div>
-
-        <div class="home-content">
-
-            <div class="row home-content__main">
-
-                <h3>Hello There</h3>
-
-                <h1>
-                    I am Dimas Kumara. <br>
-                    I am a Backend Engineer <br>
-                    developer based in Somewhere.
-                </h1>
-
-                <div class="home-content__buttons">
-                    <a href="#works" class="smoothscroll btn btn--stroke">
-                        Latest Projects
-                    </a>
-                    <a href="#about" class="smoothscroll btn btn--stroke">
-                        More About Me
-                    </a>
-                </div>
-
-                <div class="home-content__scroll">
-                    <a href="#about" class="scroll-link smoothscroll">
-                        <span>Scroll Down</span>
-                    </a>
-                </div>
-
-            </div>
-
-        </div> <!-- end home-content -->
-
-        <ul class="home-social">
-            <li>
-                <a href="#"><i class="im im-facebook" aria-hidden="true"></i><span>Facebook</span></a>
-            </li>
-            <li>
-                <a href="#"><i class="im im-twitter" aria-hidden="true"></i><span>Twiiter</span></a>
-            </li>
-            <li>
-                <a href="#"><i class="im im-instagram" aria-hidden="true"></i><span>Instagram</span></a>
-            </li>
-        </ul> 
-        <!-- end home-social -->
-
-    </section> <!-- end s-home -->
-
-
-    <!-- about
-    ================================================== -->
-    <section id="about" class="s-about target-section">
-        
-        <div class="row narrow section-intro has-bottom-sep">
-            <div class="col-full text-center">
-                <h3>About</h3>
-                <h1>More About Me</h1>
-            </div>
-        </div>
-
-        <div class="row about-content">
-
-            <div class="col-six tab-full left">
-                <h3>Howdy!</h3>
-
-                <p>Halo! Perkenalkan, saya Dimas Kumara, seorang Backend Engineer yang memiliki passion tinggi dalam membangun fondasi teknologi yang kokoh dan scalable. Dengan latar belakang pendidikan di bidang teknologi informasi dan pengalaman profesional selama beberapa tahun di industri pengembangan perangkat lunak, saya telah terbiasa bekerja di balik layar untuk mengembangkan sistem backend yang handal, aman, dan efisien.</p>
-                <p>Keahlian utama saya terletak pada pengembangan RESTful API, manajemen database, serta arsitektur sistem yang mendukung pertumbuhan aplikasi secara berkelanjutan. Saya berpengalaman menggunakan berbagai teknologi seperti PHP dengan Laravel, Node.js, dan Python (Django/Flask). Untuk basis data, saya terbiasa menggunakan MySQL, PostgreSQL, dan juga MongoDB untuk kebutuhan data non-relasional. Saya juga familiar dengan pengelolaan layanan cloud seperti AWS, DigitalOcean, dan VPS, serta memiliki pemahaman yang baik tentang containerization menggunakan Docker.</p>
-                <p>Saya selalu terbuka untuk tantangan baru, kolaborasi tim lintas disiplin, dan pembelajaran teknologi terbaru demi menciptakan solusi digital yang berdampak dan berkelanjutan.</p>
-            </div>
-
-            <div class="col-six tab-full right">
-                <h3>I've Got Some skills.</h3>
-
-                <ul class="skill-bars">
-                    <li>
-                    <div class="progress percent90"><span>90%</span></div>
-                    <strong>PHP</strong>
-                    </li>
-                    <li>
-                    <div class="progress percent85"><span>90%</span></div>
-                    <strong>LARAVEL</strong>
-                    </li>
-                    <li>
-                    <div class="progress percent70"><span>90%</span></div>
-                    <strong>CODEIGNITER</strong>
-                    </li>
-                    <li>
-                    <div class="progress percent95"><span>80%</span></div>
-                    <strong>NODE JS</strong>
-                    </li>
-                    <li>
-                    <div class="progress percent75"><span>70%</span></div>
-                    <strong>REACT JS</strong>
-                    </li>   
-                    <li>
-                    <div class="progress percent90"><span>90%</span></div>
-                    <strong>MYSQL</strong>
-                    </li> 
-                    <li>
-                    <div class="progress percent90"><span>70%</span></div>
-                    <strong>MONGO DB</strong>
-                    </li>   
-                    <li>
-                    <div class="progress percent90"><span>70%</span></div>
-                    <strong>REDIS</strong>
-                    </li> 
-                    <li>
-                    <div class="progress percent90"><span>80%</span></div>
-                    <strong>RESTFULL API</strong>
-                    </li>   
-                </ul>
-            </div>
-
-        </div> <!-- end about-content -->
-
-        <div class="row about-content about-content--buttons">
-
-            <div class="col-six tab-full left">
-                <a href="#0" class="btn btn--primary full-width">Download My CV</a>
-            </div>
-            <div class="col-six tab-full right">
-                <a href="#0" class="btn full-width">Hire Me Now</a>
-            </div>
-
-        </div> <!-- end about-content buttons -->
-
-        <div class="row about-content about-content--timeline">
-
-            <div class="col-full text-center">
-                <h3>My Work Experience.</h3>
-            </div>
-
-            <div class="col-six tab-full left">
-                <div class="timeline">
-
-                    <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
-                        <div class="timeline__header">
-                            <p class="timeline__timeframe">2024 - Present</p>
-                            <h3>PT Nagara Institute</h3>
-                            <h5>Software Developer</h5>
-                        </div>
-                        <div class="timeline__desc">
-                            <p>Mengembangkan Sistem Pemenangan Pilkada (PHP, Laravel 10, Bootstrapp, Python, Node Js).</p>
-                        </div>
-                    </div> <!-- end timeline__block -->
-
-                    <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
-                        <div class="timeline__header">
-                            <p class="timeline__timeframe">2023 - 2024</p>
-                            <h3>PT Quetra Asia Klandestin</h3>
-                            <h5>Software Developer</h5>
-                        </div>
-                        <div class="timeline__desc">	
-                            <p>
-                                <ul>
-                                    <li>Mengembangkan POS Sistem (PHP, CI 3)</li>
-                                    <li>Membangun E-commerce Ortuseight.com (PHP, Laravel 8, Tailwind CSS)</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </div> <!-- end timeline__block -->
-
-                    <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
-                        <div class="timeline__header">
-                            <p class="timeline__timeframe">2022 - 2023</p>
-                            <h3>PT Agres Info Teknologi</h3>
-                            <h5>Software Developer</h5>
-                        </div>
-                        <div class="timeline__desc">	
-                            <p>Membangun ERP Sistem berbasis web dengan arsitektur microservice (PHP, Laravel 8, React JS, Tailwind CSS)</p>
-                        </div>
-                    </div> <!-- end timeline__block -->
-
-                </div> <!-- end timeline -->
-            </div> <!-- end left -->
-
-            <div class="col-six tab-full right">
-                <div class="timeline">
-
-                    <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
-                        <div class="timeline__header">
-                            <p class="timeline__timeframe">2020 - 2022</p>
-                            <h3>PT Qnesys Teknologi Indonesia</h3>
-                            <h5>Software Developer</h5>
-                        </div>
-                        <div class="timeline__desc">
-                            <p>
-                                <ul>
-                                    <li>Membangun Hotel Hospitality System (PHP, Laravel 8)</li>
-                                    <li>Membangun Microservice API aplikasi HARO (PHP, Laravel 8).</li>
-                                    <li>Membangun Sistem Manajemen Stock ICONZ (PHP, Laravel 8).</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </div> <!-- end timeline__block -->
-
-                    <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
-                        <div class="timeline__header">
-                            <p class="timeline__timeframe">2019 - 2020</p>
-                            <h3>PT. 1011 Digital Agency</h3>
-                            <h5>Software Developer</h5>
-                        </div>
-                        <div class="timeline__desc">	
-                            <p>
-                                <ul>
-                                    <li>Membangun Web bermain Kuis milikumi.com (NODE JS).</li>
-                                    <li>Membangun Backoffice milikumi.com (PHP, CODEIGNITER 3)</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </div> <!-- end timeline__block -->
-
-                    <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
-                        <div class="timeline__header">
-                            <p class="timeline__timeframe">2022 - 2023</p>
-                            <h3>PT. Jagonyabisnis</h3>
-                            <h5>Software Developer</h5>
-                        </div>
-                        <div class="timeline__desc">	
-                            <p>
-                                <ul>
-                                    <li>Mengembangkan Sistem E-Pelatihan BPSDM (PHP, Framework GAMPIL). </li>
-                                    <li>Membangun Sistem Tanda Tangan Elektronik yang terintegrasi sertifikat elektronik BSRE (PHP, Codeigniter 3)</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </div> <!-- end timeline__block -->
-
-                </div> <!-- end timeline -->
-            </div> <!-- end right -->
-
-        </div> <!-- end about-content timeline -->
-
-    </section> <!-- end about -->
-    
-
-    <!-- works
-    ================================================== -->
-    <section id="works" class="s-works target-section">
-
-        <div class="row narrow section-intro has-bottom-sep">
-            <div class="col-full">
-                <h3>Portfolio</h3>
-                <h1>See My Latest Projects.</h1>
-            </div>
-        </div>
-
-        <div class="row masonry-wrap">
-            <div class="masonry">
-
-                <div class="masonry__brick">
-                    <div class="item-folio">
-
-                        <div class="item-folio__thumb">
-                            <a href="images/portfolio/gallery/ortuseight.png" class="thumb-link" title="The Beetle Car" data-size="1050x700">
-                                <img src="images/portfolio/gallery/ortuseight.png" 
-                                     srcset="images/portfolio/gallery/ortuseight.png 1x, images/portfolio/gallery/ortuseight.png 2x" alt="">
-                                <span class="shadow-overlay"></span>
-                            </a>
-                        </div>
-
-                        <div class="item-folio__text">
-                            <h3 class="item-folio__title">
-                                Ortuseight
-                            </h3>
-                            <p class="item-folio__cat">
-                                E Commerce
-                            </p>
-                        </div>
-
-                        <a href="#" class="item-folio__project-link" title="Project link">
-                            <i class="im im-link"></i>
-                        </a>
-
-                        <div class="item-folio__caption">
-                            <p>Ortuseight adalah perusahaan manufaktur olahraga Indonesia yang berbasis di Tangerang, Provinsi Banten, Indonesia dan didirikan pada tahun 2018 yang memproduksi sepatu dan kaos olahraga.</p>
-                        </div>
-
-                    </div> <!-- end item-folio -->
-                    <div class="item-folio">
-
-                        <div class="item-folio__thumb">
-                            <a href="images/portfolio/gallery/cullens.png" class="thumb-link" data-size="1050x700">
-                                <img src="images/portfolio/gallery/cullens.png"
-                                     srcset="images/portfolio/gallery/cullens.png 1x, images/portfolio/gallery/cullens.png 2x" alt="">
-                                <span class="shadow-overlay"></span>
-                            </a>
-                        </div>
-
-                        <div class="item-folio__text">
-                            <h3 class="item-folio__title">
-                                Cullens
-                            </h3>
-                            <p class="item-folio__cat">
-                                Sistem Pemenangan Caleg
-                            </p>
-                        </div>
-
-                        <a href="#" class="item-folio__project-link" title="Project link">
-                            <i class="im im-link"></i>
-                        </a>
-
-                        <span class="item-folio__caption">
-                            <p>Sistem untuk memenangkan caleg.</p>
-                        </span>
-
-                    </div> <!-- end item-folio -->
-                </div> <!-- end masonry__brick -->
-
-                <div class="masonry__brick">
-                    <div class="item-folio">
-
-                        <div class="item-folio__thumb">
-                            <a href="images/portfolio/gallery/iconz-landing.png" class="thumb-link" data-size="1050x700">
-                                <img src="images/portfolio/gallery/iconz-landing.png"
-                                     srcset="images/portfolio/gallery/iconz-landing.png 1x, images/portfolio/gallery/iconz-landing.png 2x" alt="">
-                                <span class="shadow-overlay"></span>
-                            </a>
-                        </div>
-
-                        <div class="item-folio__text">
-                            <h3 class="item-folio__title">
-                                Catalogue Iconz
-                            </h3>
-                            <p class="item-folio__cat">
-                                Web Catalogue
-                            </p>
-                        </div>
-
-                        <a href="#" class="item-folio__project-link" title="Project link">
-                            <i class="im im-link"></i>
-                        </a>
-
-                        <span class="item-folio__caption">
-                            <p>Website Catalogue untuk memperkenalkan produk-produk yang dijual oleh iconz.</p>
-                        </span>
-
-                    </div> <!-- end item-folio -->
-                    <div class="item-folio">
-
-                        <div class="item-folio__thumb">
-                            <a href="images/portfolio/gallery/iconz.png" class="thumb-link" data-size="1050x700">
-                                <img src="images/portfolio/gallery/iconz.png" 
-                                     srcset="images/portfolio/gallery/iconz.png 1x, images/portfolio/gallery/iconz.png 2x" alt="">
-                                <span class="shadow-overlay"></span>
-                            </a>
-                        </div>
-
-                        <div class="item-folio__text">
-                            <h3 class="item-folio__title">
-                                Backoffice Iconz
-                            </h3>
-                            <p class="item-folio__cat">
-                                ERP (Manajemen Stok)
-                            </p>
-                        </div>
-
-                        <a href="#" class="item-folio__project-link" title="Project link">
-                            <i class="im im-link"></i>
-                        </a>
-
-                        <span class="item-folio__caption">
-                            <p>Sistem untuk manajemen stok (keluar masuk barang)</p>
-                        </span>
-
-                    </div> <!-- end item-folio -->
-                </div> <!-- end masonry__brick -->
-
-                <div class="masonry__brick">
-                    <div class="item-folio">
-
-                        <div class="item-folio__thumb">
-                            <a href="images/portfolio/gallery/patradata.png" class="thumb-link" data-size="1050x700">
-                                <img src="images/portfolio/gallery/patradata.png"
-                                     srcset="images/portfolio/gallery/patradata.png 1x, images/portfolio/gallery/patradata.png 2x" alt="">
-                                <span class="shadow-overlay"></span>
-                            </a>
-                        </div>
-
-                        <div class="item-folio__text">
-                            <h3 class="item-folio__title">
-                                Patradata
-                            </h3>
-                            <p class="item-folio__cat">
-                                Sistem Pemenangan Caleg
-                            </p>
-                        </div>
-
-                        <a href="#" class="item-folio__project-link" title="Project link">
-                            <i class="im im-link"></i>
-                        </a>
-
-                        <span class="item-folio__caption">
-                            <p>Sistem untuk memenangkan caleg.</p>
-                        </span>
-
-                    </div> <!-- end item-folio -->
-                    <div class="item-folio">
-
-                        <div class="item-folio__thumb">
-                            <a href="images/portfolio/gallery/daikin.png" class="thumb-link" title="Lighthouse" data-size="1050x700">
-                                <img src="images/portfolio/gallery/daikin.png" 
-                                     srcset="images/portfolio/gallery/daikin.png 1x, images/portfolio/gallery/daikin.png 2x" alt="">
-                                <span class="shadow-overlay"></span>
-                            </a>
-                        </div>
-
-                        <div class="item-folio__text">
-                            <h3 class="item-folio__title">
-                                Daikin
-                            </h3>
-                            <p class="item-folio__cat">
-                                Daikin Designer Award 2023
-                            </p>
-                        </div>
-
-                        <a href="#" class="item-folio__project-link" title="Project link">
-                            <i class="im im-link"></i>
-                        </a>
-
-                        <div class="item-folio__caption">
-                            <p>Daikin Designer Award 2023 adalah kompetisi tahunan yang diselenggarakan oleh PT Daikin Airconditioning Indonesia untuk para profesional dan mahasiswa di bidang arsitektur serta desain interior. Mengusung tema RE:IMAGINE, ajang ini menantang peserta untuk menciptakan hunian ideal yang memadukan estetika ruang dengan kenyamanan tata udara secara harmonis. </p>
-                        </div>
-
-                    </div> <!-- end item-folio -->
-                </div> <!-- end masonry__brick -->
-
-            </div>
-        </div> <!-- end masonry -->
-
-    </section> <!-- end works -->
-
-
-    <!-- s-stats
-    ================================================== -->
-    <section id="contact" class="s-contact target-section">
-
-        <div class="overlay"></div>
-
-        <div class="row narrow section-intro">
-            <div class="col-full">
-                <h3>Contact</h3>
-                <h1>Say Hello.</h1>
-                
-                <p class="lead">Saya terbuka untuk kolaborasi dan siap bekerja sama dalam menciptakan solusi terbaik yang saling menguntungkan. Bagi saya, kerja sama adalah kunci untuk mencapai tujuan bersama, dan saya percaya bahwa dengan komunikasi yang baik serta semangat yang sama, kita bisa membangun sesuatu yang hebat. Mari mulai dan wujudkan ide-ide besar bersama!</p>
-            </div>
-        </div>
-
-        <div class="row contact__main">
-            <div class="col-eight tab-full contact__form">
-                <form name="contactForm" id="contactForm" method="post" action="">
-                    <fieldset>
-    
-                    <div class="form-field">
-                        <input name="contactName" type="text" id="contactName" placeholder="Name" value="" minlength="2" required="" aria-required="true" class="full-width">
-                    </div>
-                    <div class="form-field">
-                        <input name="contactEmail" type="email" id="contactEmail" placeholder="Email" value="" required="" aria-required="true" class="full-width">
-                    </div>
-                    <div class="form-field">
-                        <input name="contactSubject" type="text" id="contactSubject" placeholder="Subject" value="" class="full-width">
-                    </div>
-                    <div class="form-field">
-                        <textarea name="contactMessage" id="contactMessage" placeholder="message" rows="10" cols="50" required="" aria-required="true" class="full-width"></textarea>
-                    </div>
-                    <div class="form-field">
-                        <button class="full-width btn--primary">Submit</button>
-                        <div class="submit-loader">
-                            <div class="text-loader">Sending...</div>
-                            <div class="s-loader">
-                                <div class="bounce1"></div>
-                                <div class="bounce2"></div>
-                                <div class="bounce3"></div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    </fieldset>
-                </form>
-
-                <!-- contact-warning -->
-                <div class="message-warning">
-                    Something went wrong. Please try again.
-                </div> 
-            
-                <!-- contact-success -->
-                <div class="message-success">
-                    Your message was sent, thank you!<br>
-                </div>
-                        
-            </div>
-            <div class="col-four tab-full contact__infos">
-                <h4 class="h06">Phone</h4>
-                <p>Mobile: (+62) 8577 6505 192</p>
-
-                <h4 class="h06">Email</h4>
-                <p>dimaskumara11@gmail.com</p>
-
-                <h4 class="h06">Address</h4>
-                <p>Bogor, West Java, Indonesia</p>
-            </div>
-
-        </div>
-
-    </section> <!-- end s-contact -->
-
-
-    <!-- footer
-    ================================================== -->
-    <footer>
-        <div class="row">
-            <div class="col-full">
-
-                <div class="footer-logo">
-                    <a class="footer-site-logo" href="#0"><img src="images/logo.png" alt="Homepage"></a>
-                </div>
-
-                <ul class="footer-social">
-                    <li><a href="#0">
-                        <i class="im im-facebook" aria-hidden="true"></i>
-                        <span>Facebook</span>
-                    </a></li>
-                    <li><a href="#0">
-                        <i class="im im-twitter" aria-hidden="true"></i>
-                        <span>Twitter</span>
-                    </a></li>
-                    <li><a href="#0">
-                        <i class="im im-instagram" aria-hidden="true"></i>
-                        <span>Instagram</span>
-                    </a></li>
-                </ul>
-                    
-            </div>
-        </div>
-
-        <div class="row footer-bottom">
-
-            <div class="col-twelve">
-                <div class="copyright">
-                    <span>© Copyright Hola 2017</span> 
-                    <span>Design by <a href="https://www.styleshout.com/">styleshout</a></span>	
-                </div>
-
-                <div class="go-top">
-                <a class="smoothscroll" title="Back to Top" href="#top"><i class="im im-arrow-up" aria-hidden="true"></i></a>
-                </div>
-            </div>
-
-        </div> <!-- end footer-bottom -->
-
-    </footer> <!-- end footer -->
-
-
-    <!-- photoswipe background
-    ================================================== -->
-    <div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
-
-        <div class="pswp__bg"></div>
-        <div class="pswp__scroll-wrap">
-
-            <div class="pswp__container">
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-            </div>
-
-            <div class="pswp__ui pswp__ui--hidden">
-                <div class="pswp__top-bar">
-                    <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title=
-                    "Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title=
-                    "Zoom in/out"></button>
-                    <div class="pswp__preloader">
-                        <div class="pswp__preloader__icn">
-                            <div class="pswp__preloader__cut">
-                                <div class="pswp__preloader__donut"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                    <div class="pswp__share-tooltip"></div>
-                </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button> <button class="pswp__button pswp__button--arrow--right" title=
-                "Next (arrow right)"></button>
-                <div class="pswp__caption">
-                    <div class="pswp__caption__center"></div>
-                </div>
-            </div>
-
-        </div>
-
-    </div><!-- end photoSwipe background -->
-
-    <div id="preloader">
-        <div id="loader"></div>
+<body>
+
+  <!-- NAV -->
+  <nav class="book-nav">
+    <a href="#cover" class="nav-brand">D. Kumara</a>
+    <ul class="nav-links">
+      <li><a href="#cover">Cover</a></li>
+      <li><a href="#about">I. About</a></li>
+      <li><a href="#skills">II. Skills</a></li>
+      <li><a href="#experience">III. Experience</a></li>
+      <li><a href="#portfolio">IV. Portfolio</a></li>
+      <li><a href="#contact">V. Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ======================== COVER ======================== -->
+  <section id="cover" class="book-cover">
+    <div class="book-spine">
+      <span class="spine-gem">◆</span>
+      <span class="spine-text">Dimas Kumara</span>
+      <span class="spine-gem">✦</span>
+      <span class="spine-text">Backend Engineer</span>
+      <span class="spine-gem">◆</span>
+      <span class="spine-text">Portfolio MMXXV</span>
+      <span class="spine-gem">✦</span>
     </div>
 
+    <div class="cover-content">
+      <span class="cover-edition reveal">The Portfolio of</span>
 
-    <!-- Java Script
-    ================================================== -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+      <h1 class="cover-name reveal d1">
+        Dimas<br>
+        <em>Kumara</em>
+      </h1>
+
+      <p class="cover-subtitle reveal d2">
+        Backend Engineer &amp; Software Developer<br>
+        Crafting scalable systems, one line at a time.
+      </p>
+
+      <div class="ornamental-rule reveal d3">
+        <div class="rl"></div>
+        <span class="gem">◆</span>
+        <div class="rl rev"></div>
+      </div>
+
+      <div class="cover-meta reveal d3">
+        <div>
+          <div class="meta-label">Specialty</div>
+          <div class="meta-value">PHP · Laravel · Node.js</div>
+        </div>
+        <div>
+          <div class="meta-label">Experience</div>
+          <div class="meta-value">6+ Years</div>
+        </div>
+        <div>
+          <div class="meta-label">Location</div>
+          <div class="meta-value">Bogor, West Java</div>
+        </div>
+        <div>
+          <div class="meta-label">Edition</div>
+          <div class="meta-value">MMXXV — First Ed.</div>
+        </div>
+      </div>
+
+      <div class="btn-row reveal d4">
+        <a href="#portfolio" class="btn-ink">See My Work</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+      </div>
+
+      <div class="cover-folio">I</div>
+    </div>
+  </section>
+
+  <!-- ======================== CHAPTER I: ABOUT ======================== -->
+  <section id="about" class="chapter">
+    <div class="chapter-runner">
+      <span>Dimas Kumara — Portfolio</span>
+      <span>Chapter One</span>
+    </div>
+    <div class="bg-folio">I</div>
+
+    <div class="chapter-inner">
+      <span class="ch-label reveal">Chapter One</span>
+      <h2 class="ch-heading reveal d1">About <em>The Author</em></h2>
+
+      <div class="ornament reveal d2">
+        <div class="ln"></div>
+        <span class="fl">❦</span>
+        <div class="ln"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text reveal d2">
+          <p class="drop-cap">
+            Halo! Perkenalkan, saya Dimas Kumara, seorang Backend Engineer yang memiliki passion tinggi dalam membangun fondasi teknologi yang kokoh dan scalable. Dengan latar belakang pendidikan di bidang teknologi informasi dan pengalaman profesional selama lebih dari 6 tahun di industri pengembangan perangkat lunak.
+          </p>
+          <p>
+            Keahlian utama saya terletak pada pengembangan RESTful API, manajemen database, serta arsitektur sistem yang mendukung pertumbuhan aplikasi secara berkelanjutan. Saya berpengalaman menggunakan berbagai teknologi seperti PHP dengan Laravel, Node.js, dan Python (Django/Flask).
+          </p>
+          <p>
+            Untuk basis data, saya terbiasa menggunakan MySQL, PostgreSQL, dan MongoDB untuk kebutuhan data non-relasional. Saya juga familiar dengan pengelolaan layanan cloud seperti AWS, DigitalOcean, dan VPS, serta pemahaman yang baik tentang containerization menggunakan Docker.
+          </p>
+          <p>
+            Saya selalu terbuka untuk tantangan baru, kolaborasi tim lintas disiplin, dan pembelajaran teknologi terbaru demi menciptakan solusi digital yang berdampak dan berkelanjutan.
+          </p>
+          <div style="margin-top: 2rem;">
+            <a href="mailto:dimaskumara11@gmail.com" class="btn-ink">Hire Me Now</a>
+          </div>
+        </div>
+
+        <div class="callout-box reveal d3">
+          <p class="callout-quote">
+            "Saya percaya bahwa dengan komunikasi yang baik serta semangat yang sama, kita bisa membangun sesuatu yang hebat."
+          </p>
+          <div style="border-top: 1px solid rgba(184,134,11,0.25); padding-top: 1.5rem;">
+            <div class="meta-label" style="margin-bottom: 0.8rem;">Technologies</div>
+            <div class="tag-cloud">
+              <span class="tag">PHP</span>
+              <span class="tag">Laravel</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">Python</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">Redis</span>
+              <span class="tag">Docker</span>
+              <span class="tag">AWS</span>
+              <span class="tag">DigitalOcean</span>
+              <span class="tag">React.js</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-num">2</div>
+  </section>
+
+  <!-- ======================== CHAPTER II: SKILLS ======================== -->
+  <section id="skills" class="chapter chapter--alt">
+    <div class="chapter-runner">
+      <span>Chapter Two — Skills &amp; Expertise</span>
+      <span>Dimas Kumara</span>
+    </div>
+    <div class="bg-folio">II</div>
+
+    <div class="chapter-inner">
+      <span class="ch-label reveal">Chapter Two</span>
+      <h2 class="ch-heading reveal d1">Skills &amp; <em>Expertise</em></h2>
+
+      <div class="ornament reveal d2">
+        <div class="ln"></div>
+        <span class="fl">❦</span>
+        <div class="ln"></div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-pct="90">
+          <div class="sk-name">PHP</div>
+          <div style="position:relative; padding-top:1.3rem;">
+            <span class="sk-pct">90%</span>
+            <div class="sk-track"><div class="sk-fill"></div></div>
+          </div>
+        </div>
+        <div class="skill-card reveal d1" data-pct="90">
+          <div class="sk-name">Laravel</div>
+          <div style="position:relative; padding-top:1.3rem;">
+            <span class="sk-pct">90%</span>
+            <div class="sk-track"><div class="sk-fill"></div></div>
+          </div>
+        </div>
+        <div class="skill-card reveal d2" data-pct="90">
+          <div class="sk-name">CodeIgniter</div>
+          <div style="position:relative; padding-top:1.3rem;">
+            <span class="sk-pct">90%</span>
+            <div class="sk-track"><div class="sk-fill"></div></div>
+          </div>
+        </div>
+        <div class="skill-card reveal d1" data-pct="80">
+          <div class="sk-name">Node.js</div>
+          <div style="position:relative; padding-top:1.3rem;">
+            <span class="sk-pct">80%</span>
+            <div class="sk-track"><div class="sk-fill"></div></div>
+          </div>
+        </div>
+        <div class="skill-card reveal d2" data-pct="70">
+          <div class="sk-name">React.js</div>
+          <div style="position:relative; padding-top:1.3rem;">
+            <span class="sk-pct">70%</span>
+            <div class="sk-track"><div class="sk-fill"></div></div>
+          </div>
+        </div>
+        <div class="skill-card reveal d3" data-pct="90">
+          <div class="sk-name">MySQL</div>
+          <div style="position:relative; padding-top:1.3rem;">
+            <span class="sk-pct">90%</span>
+            <div class="sk-track"><div class="sk-fill"></div></div>
+          </div>
+        </div>
+        <div class="skill-card reveal" data-pct="70">
+          <div class="sk-name">MongoDB</div>
+          <div style="position:relative; padding-top:1.3rem;">
+            <span class="sk-pct">70%</span>
+            <div class="sk-track"><div class="sk-fill"></div></div>
+          </div>
+        </div>
+        <div class="skill-card reveal d1" data-pct="70">
+          <div class="sk-name">Redis</div>
+          <div style="position:relative; padding-top:1.3rem;">
+            <span class="sk-pct">70%</span>
+            <div class="sk-track"><div class="sk-fill"></div></div>
+          </div>
+        </div>
+        <div class="skill-card reveal d2" data-pct="80">
+          <div class="sk-name">RESTful API</div>
+          <div style="position:relative; padding-top:1.3rem;">
+            <span class="sk-pct">80%</span>
+            <div class="sk-track"><div class="sk-fill"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-num">4</div>
+  </section>
+
+  <!-- ======================== CHAPTER III: EXPERIENCE ======================== -->
+  <section id="experience" class="chapter">
+    <div class="chapter-runner">
+      <span>Chapter Three — Work Experience</span>
+      <span>Dimas Kumara</span>
+    </div>
+    <div class="bg-folio">III</div>
+
+    <div class="chapter-inner">
+      <span class="ch-label reveal">Chapter Three</span>
+      <h2 class="ch-heading reveal d1">Work <em>Experience</em></h2>
+
+      <div class="ornament reveal d2">
+        <div class="ln"></div>
+        <span class="fl">❦</span>
+        <div class="ln"></div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="exp-entry reveal">
+          <div class="exp-period">2024 — Present</div>
+          <div class="exp-co">PT Nagara Institute</div>
+          <div class="exp-role">Software Developer</div>
+          <div class="exp-desc">
+            Mengembangkan Sistem Pemenangan Pilkada menggunakan stack modern: PHP, Laravel 10, Bootstrap, Python, dan Node.js.
+          </div>
+        </div>
+
+        <div class="exp-entry reveal d1">
+          <div class="exp-period">2023 — 2024</div>
+          <div class="exp-co">PT Quetra Asia Klandestin</div>
+          <div class="exp-role">Software Developer</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Mengembangkan POS Sistem (PHP, CI 3)</li>
+              <li>Membangun E-commerce Ortuseight.com (PHP, Laravel 8, Tailwind CSS)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry reveal d2">
+          <div class="exp-period">2022 — 2023</div>
+          <div class="exp-co">PT Agres Info Teknologi</div>
+          <div class="exp-role">Software Developer</div>
+          <div class="exp-desc">
+            Membangun ERP Sistem berbasis web dengan arsitektur microservice (PHP, Laravel 8, React JS, Tailwind CSS).
+          </div>
+        </div>
+
+        <div class="exp-entry reveal d2">
+          <div class="exp-period">2022 — 2023</div>
+          <div class="exp-co">PT. Jagonyabisnis</div>
+          <div class="exp-role">Software Developer</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Mengembangkan Sistem E-Pelatihan BPSDM (PHP, Framework GAMPIL)</li>
+              <li>Membangun Sistem Tanda Tangan Elektronik terintegrasi BSRE (PHP, CodeIgniter 3)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry reveal d3">
+          <div class="exp-period">2020 — 2022</div>
+          <div class="exp-co">PT Qnesys Teknologi Indonesia</div>
+          <div class="exp-role">Software Developer</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Membangun Hotel Hospitality System (PHP, Laravel 8)</li>
+              <li>Membangun Microservice API aplikasi HARO (PHP, Laravel 8)</li>
+              <li>Membangun Sistem Manajemen Stock ICONZ (PHP, Laravel 8)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry reveal d4">
+          <div class="exp-period">2019 — 2020</div>
+          <div class="exp-co">PT. 1011 Digital Agency</div>
+          <div class="exp-role">Software Developer</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Membangun Web bermain Kuis milikumi.com (Node.js)</li>
+              <li>Membangun Backoffice milikumi.com (PHP, CodeIgniter 3)</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pg-num">8</div>
+  </section>
+
+  <!-- ======================== CHAPTER IV: PORTFOLIO ======================== -->
+  <section id="portfolio" class="chapter chapter--alt">
+    <div class="chapter-runner">
+      <span>Chapter Four — Featured Works</span>
+      <span>Dimas Kumara</span>
+    </div>
+    <div class="bg-folio">IV</div>
+
+    <div class="chapter-inner">
+      <span class="ch-label reveal">Chapter Four</span>
+      <h2 class="ch-heading reveal d1">Featured <em>Works</em></h2>
+
+      <div class="ornament reveal d2">
+        <div class="ln"></div>
+        <span class="fl">❦</span>
+        <div class="ln"></div>
+      </div>
+
+      <div class="project-grid">
+
+        <div class="proj-card reveal">
+          <div class="proj-no">01</div>
+          <div class="proj-cat">E-Commerce</div>
+          <div class="proj-title">Ortuseight</div>
+          <div class="proj-desc">Platform e-commerce untuk Ortuseight, perusahaan manufaktur olahraga Indonesia berbasis di Tangerang, yang memproduksi sepatu dan kaos olahraga. Dibangun dengan PHP, Laravel 8, dan Tailwind CSS.</div>
+        </div>
+
+        <div class="proj-card reveal d1">
+          <div class="proj-no">02</div>
+          <div class="proj-cat">Sistem Politik</div>
+          <div class="proj-title">Cullens</div>
+          <div class="proj-desc">Sistem Pemenangan Caleg — platform digital strategis untuk membantu pemenangan kandidat dalam pemilihan legislatif dengan data dan analitik real-time.</div>
+        </div>
+
+        <div class="proj-card reveal d2">
+          <div class="proj-no">03</div>
+          <div class="proj-cat">Web Catalogue</div>
+          <div class="proj-title">Catalogue Iconz</div>
+          <div class="proj-desc">Website catalogue yang dirancang untuk memperkenalkan dan mempromosikan produk-produk Iconz kepada pelanggan secara visual dan informatif.</div>
+        </div>
+
+        <div class="proj-card reveal d1">
+          <div class="proj-no">04</div>
+          <div class="proj-cat">ERP System</div>
+          <div class="proj-title">Backoffice Iconz</div>
+          <div class="proj-desc">Sistem manajemen stok berbasis ERP untuk mengelola alur keluar masuk barang secara terstruktur, efisien, dan akurat menggunakan PHP dan Laravel 8.</div>
+        </div>
+
+        <div class="proj-card reveal d2">
+          <div class="proj-no">05</div>
+          <div class="proj-cat">Sistem Politik</div>
+          <div class="proj-title">Patradata</div>
+          <div class="proj-desc">Sistem Pemenangan Caleg yang membantu tim pemenangan mengelola strategi, data pemilih, dan laporan secara komprehensif dan terintegrasi.</div>
+        </div>
+
+        <div class="proj-card reveal d3">
+          <div class="proj-no">06</div>
+          <div class="proj-cat">Kompetisi Desain</div>
+          <div class="proj-title">Daikin Award 2023</div>
+          <div class="proj-desc">Platform untuk Daikin Designer Award 2023, kompetisi tahunan bagi profesional dan mahasiswa arsitektur serta desain interior, mengusung tema RE:IMAGINE.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pg-num">14</div>
+  </section>
+
+  <!-- ======================== CHAPTER V: CONTACT ======================== -->
+  <section id="contact" class="chapter chapter--dark">
+    <div class="chapter-runner" style="color:rgba(212,160,23,0.4);">
+      <span>Chapter Five — Say Hello</span>
+      <span>Dimas Kumara</span>
+    </div>
+    <div class="bg-folio" style="color:rgba(245,239,224,0.03);">V</div>
+
+    <div class="chapter-inner">
+      <span class="ch-label reveal">Chapter Five — Epilogue</span>
+      <h2 class="ch-heading reveal d1">Say <em>Hello</em></h2>
+
+      <div class="ornament reveal d2">
+        <div class="ln" style="background:rgba(212,160,23,0.4);"></div>
+        <span class="fl">❦</span>
+        <div class="ln" style="background:rgba(212,160,23,0.4);"></div>
+      </div>
+
+      <div class="contact-grid reveal d2">
+        <div>
+          <p class="contact-intro">
+            Saya terbuka untuk kolaborasi dan siap bekerja sama dalam menciptakan solusi terbaik. Bagi saya, kerja sama adalah kunci untuk mencapai tujuan bersama — mari wujudkan ide-ide besar bersama!
+          </p>
+          <a href="mailto:dimaskumara11@gmail.com" class="btn-ink-light">Kirim Pesan</a>
+        </div>
+        <div>
+          <ul class="contact-info">
+            <li>
+              <span class="ci-label">Phone</span>
+              <span class="ci-val">(+62) 8577 6505 192</span>
+            </li>
+            <li>
+              <span class="ci-label">Email</span>
+              <span class="ci-val">dimaskumara11@gmail.com</span>
+            </li>
+            <li>
+              <span class="ci-label">Location</span>
+              <span class="ci-val">Bogor, West Java, Indonesia</span>
+            </li>
+          </ul>
+          <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(212,160,23,0.2);">
+            <p style="font-family:'EB Garamond',serif; font-style:italic; color:rgba(245,239,224,0.55); font-size:0.95rem; line-height:1.7;">
+              Open for freelance projects, full-time opportunities, and exciting collaborations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-num">18</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-copy">© MMXXV Dimas Kumara — All Rights Reserved</span>
+      <ul class="footer-links">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // ===== SCROLL REVEAL =====
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ===== SKILL BAR ANIMATION =====
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const pct = entry.target.dataset.pct;
+          const fill = entry.target.querySelector('.sk-fill');
+          if (fill) {
+            setTimeout(() => { fill.style.width = pct + '%'; }, 200);
+          }
+          skillObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.skill-card').forEach(el => skillObserver.observe(el));
+
+    // ===== ACTIVE NAV =====
+    const sections = document.querySelectorAll('section[id]');
+    const navAs = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      sections.forEach(sec => {
+        if (scrollY >= sec.offsetTop - 80) cur = sec.id;
+      });
+      navAs.forEach(a => {
+        if (a.getAttribute('href') === '#' + cur) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      });
+    });
+
+    // Initial reveal for elements already in view
+    document.querySelectorAll('.reveal').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.9) el.classList.add('in');
+    });
+  </script>
 
 </body>
-
 </html>
