@@ -570,6 +570,31 @@
       border-radius: 2px;
       margin-bottom: 1rem;
       border: 1px solid rgba(184,134,11,0.15);
+      cursor: zoom-in;
+      transition: transform 0.2s;
+    }
+    .proj-card img:hover { transform: scale(1.02); }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0,0,0,0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: zoom-out;
+    }
+    .lightbox.open { opacity: 1; pointer-events: auto; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border: 3px solid var(--gold);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+      object-fit: contain;
     }
     .proj-desc {
       font-size: 0.9rem;
@@ -1141,6 +1166,9 @@
     <div class="pg-num">18</div>
   </section>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox"><img src="" alt=""></div>
+
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
@@ -1203,6 +1231,16 @@
       const r = el.getBoundingClientRect();
       if (r.top < window.innerHeight * 0.9) el.classList.add('in');
     });
+
+    // ===== LIGHTBOX =====
+    const lb = document.getElementById('lightbox');
+    document.querySelectorAll('.proj-card img').forEach(img => {
+      img.addEventListener('click', () => {
+        lb.querySelector('img').src = img.src;
+        lb.classList.add('open');
+      });
+    });
+    lb.addEventListener('click', () => lb.classList.remove('open'));
   </script>
 
 </body>
